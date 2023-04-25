@@ -1,13 +1,10 @@
 import threading
-from configs.environment import serverName
-from configs.rabbit import reciveMessages, clearQueues
-from tools import keepAlive
+from tools import keepAlive, interpreter
 
 
 def main():
-    clearQueues(serverName())
     threading.Thread(target=keepAlive.init).start()
-    threading.Thread(target=reciveMessages, args=[serverName()]).start()
+    threading.Thread(target=interpreter.messageSystem).start()
     print("CIMS-SERVER Started")
 
 
