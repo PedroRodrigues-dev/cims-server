@@ -27,7 +27,6 @@ def messageSystem():
 
     def __callback(ch, method, properties, body):
         body = json.loads(body.decode())
-        print(body)
         broker.sendMessage("responses", interpreter(body))
 
     channel.basic_consume(
