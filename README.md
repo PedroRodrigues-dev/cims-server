@@ -44,3 +44,37 @@
 8. Run application:
 
    python main.py
+
+## Production
+
+1. Define environment variables:
+
+   export CIMS_SERVER_SERVER_NAME=Your server name (required)
+
+   export CIMS_SERVER_RABBIT_USERNAME=guest (default)
+
+   export CIMS_SERVER_RABBIT_PASSWORD=guest (default)
+
+   export CIMS_SERVER_RABBIT_HOST=localhost (default):
+
+2. Untar applciation:
+
+   tar -xvf cims-server-buildVersion
+
+3. Run application:
+
+   ./main
+
+## Generate Package
+
+1. Access generatePackage.sh:
+
+   change the version variable to your version
+
+2. Run generatePackage.sh:
+
+   ./generatePackage.sh
+
+3. Upload version to github:
+
+   follow the model that was used for the other releases and tags
