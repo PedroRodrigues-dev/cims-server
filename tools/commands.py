@@ -1,3 +1,6 @@
+import subprocess
+
+
 commandDict = {"help": "Show the list of all commands"}
 
 

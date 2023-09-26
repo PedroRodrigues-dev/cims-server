@@ -1,16 +1,20 @@
 import json
-import time
 from tools.commands import commandDict, commandCall
 from configs import broker, environment
+from tools.timeLang import interpreter as tilaInterpreter
 
 
 def interpreter(message):
     command = message["body"]
 
-    if command in commandDict:
-        body = commandCall[command]()
+    if type(command) == dict:
+        body = tilaInterpreter(command["code"])
+
     else:
-        body = "command not found"
+        if command in commandDict:
+            body = commandCall[command]()
+        else:
+            body = "command not found"
 
     return {
         "authorId": message["authorId"],

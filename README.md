@@ -17,7 +17,7 @@
 
 3. Install python:
 
-   asdf install python 3.11.2
+   asdf install python 3.11.3
 
 4. Create venv:
 
