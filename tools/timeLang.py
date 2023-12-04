@@ -2,6 +2,8 @@ import datetime
 import threading
 from time import sleep
 
+from tools import threadMonitor
+
 
 def tila(line):
     tokens = line.replace("#![", "").replace("]!#", "").split(" ")
@@ -41,12 +43,19 @@ def tila(line):
 
 def interpreter(code):
     lines = code.split("\n")
+    routineName = ""
 
     if lines[0].startswith("#![") and lines[0].endswith("]!#"):
-        timeDelta = tila(lines[0])
+        routineName = lines[0].replace("#![", "").replace("]!#", "")
+    else:
+        return "tila routine name not found"
+
+    if lines[1].startswith("#![") and lines[1].endswith("]!#"):
+        timeDelta = tila(lines[1])
     else:
         return "tila code not found"
 
+    lines.pop(0)
     lines.pop(0)
 
     if type(timeDelta) == str:
@@ -60,7 +69,14 @@ def interpreter(code):
 
     pythonCode = "\n".join(lines)
 
-    threading.Thread(target=routine, args=[pythonCode, timeDelta]).start()
+    thread = threading.Thread(target=routine, args=[pythonCode, timeDelta])
+    thread.start()
+
+    thread_id = id(thread)
+    threadMonitor.threads["threads"][thread_id] = thread
+    threadMonitor.threads["threadsName"][thread_id] = routineName
+
+    return f"Routine {routineName} running on {thread.name}"
 
 
 def routine(pythonCode, timeDelta):
